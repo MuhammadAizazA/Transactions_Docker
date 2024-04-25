@@ -1,0 +1,17 @@
+mongodb:
+  user_name: "agent007"
+  user_password: "Asdf4321"
+  uri_start: "mongodb+srv://"
+  uri_end: "databases.muf08kw.mongodb.net/?retryWrites=true&w=majority&appName=DataBases"
+  database_name: "Transactions_Database"
+  collection_name: "synthetic_Transactions"
+
+utils:
+  days: 10
+
+paths:
+  raw_data_file: Data/Raw_Data/transactions.json
+  clean_data_file: Data/Clean_Data/clean_data.csv
+  transactions_per_day_output_file: Data/Predicted_Data/transactions_per_day.csv
+  cta_output_file: Data/Predicted_Data/transaction_amount_per_day.csv
+  transactions_data_directory: Data/Transactions_Data
