@@ -20,7 +20,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"message": "Site is Working\nApi's You can Call\nmake_transactions\nread_transactions_from_mongodb\n"}
+    return {"message": "Site is Working---Api's--- You can Call---\make_transactions---\read_transactions_from_mongodb"}
 
 @app.get("/make_transactions")
 async def transaction_maker():
