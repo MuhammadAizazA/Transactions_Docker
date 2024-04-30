@@ -27,7 +27,5 @@ RUN pip3 install -r requirements.txt
 # Expose the port that the application listens on.
 EXPOSE 8000
 
-HEALTHCHECK CMD curl --fail http://localhost:8000/_stcore/health
-
 # Run the application.
 CMD uvicorn 'main:app' --host=0.0.0.0 --port=8000
