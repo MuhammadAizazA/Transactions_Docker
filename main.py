@@ -20,7 +20,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"message": "Site is Working---Api's--- You can Call---make_transactions---read_transactions_from_mongodb"}
+    return {"message": "Site is Working---Api's---You can Call---make_transactions---read_transactions_from_mongodb"}
 
 @app.get("/make_transactions")
 async def transaction_maker():
@@ -57,16 +57,6 @@ async def read_transactions_from_mongodb_endpoint():
 
     # Return the transactions as JSON using the custom encoder
     return json.loads(json.dumps(transactions, cls=ObjectIdEncoder))
-
-def read_csv_files(directory):
-    data = []
-    for filename in os.listdir(directory):
-        if filename.endswith(".csv"):
-            file_path = os.path.join(directory, filename)
-            with open(file_path, 'r', newline='') as csvfile:
-                reader = csv.DictReader(csvfile)
-                data.extend(list(reader))
-    return data
 
 def load_config(config_file):
     with open(config_file, 'r') as f:

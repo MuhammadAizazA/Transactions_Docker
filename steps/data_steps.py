@@ -57,7 +57,13 @@ def save_to_mongoDB(df: pd.DataFrame, mongo_uri: str, db_name: str, collection_n
         print(f"Collection '{collection_name}' does not exist. It will be created when data is inserted.")
 
     collection = db[collection_name]
-
+    try:
+        result = collection.delete_many({})
+        print(f"Deleted {result.deleted_count} documents from collection '{collection_name}'")
+    except Exception as e:
+        print(f"An error occurred while deleting previous data: {e}")
+        return  # Exit if deletion fails
+    
     try:
         records = df.to_dict(orient='records')
         collection.insert_many(records)

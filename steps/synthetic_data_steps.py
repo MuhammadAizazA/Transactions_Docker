@@ -134,18 +134,20 @@ def save_transactions_data_to_mongodb(combined_df: pd.DataFrame, mongo_uri: str,
         print("Pinged your deployment. You successfully connected to MongoDB!")
     except Exception as e:
         print(e)
-    # Check if the database exists
-    if db_name not in client.list_database_names():
-        print(f"Database '{db_name}' does not exist. It will be created when data is inserted.")
+        return  # Exit if connection fails
 
     db = client[db_name]
-
-    # Check if the collection exists
-    if collection_name not in db.list_collection_names():
-        print(f"Collection '{collection_name}' does not exist. It will be created when data is inserted.")
-
     collection = db[collection_name]
-    print(combined_df)
+
+    # Delete previous data from the collection
+    try:
+        result = collection.delete_many({})
+        print(f"Deleted {result.deleted_count} documents from collection '{collection_name}'")
+    except Exception as e:
+        print(f"An error occurred while deleting previous data: {e}")
+        return  # Exit if deletion fails
+
+    # Insert fresh data into the collection
     try:
         for idx, row in combined_df.iterrows():
             date = row['timestamp'].date()

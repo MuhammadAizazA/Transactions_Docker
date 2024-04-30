@@ -107,6 +107,12 @@ def forecast_and_save(df:pd.DataFrame, db_name:str,feature:str, mongo_uri:str)->
         client = MongoClient(mongo_uri)
         db = client[db_name]
         collection = db[feature]
+        try:
+            result = collection.delete_many({})
+            print(f"Deleted {result.deleted_count} documents from collection '{feature}'")
+        except Exception as e:
+            print(f"An error occurred while deleting previous data: {e}")
+            return  # Exit if deletion fails
         records = forecast[['ds', 'yhat']].tail(days).rename(columns={'ds': 'timestamp', 'yhat': feature+'_forecast'}).to_dict(orient='records')
         collection.insert_many(records)
         print(f"Forecasted data for '{feature}' saved to MongoDB")
