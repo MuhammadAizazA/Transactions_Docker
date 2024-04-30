@@ -7,7 +7,7 @@ mongodb:
   collection_name: "synthetic_Transactions"
 
 utils:
-  days: 10
+  days: 100
 
 paths:
   raw_data_file: Data/Raw_Data/transactions.json
